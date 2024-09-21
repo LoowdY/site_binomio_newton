@@ -101,13 +101,17 @@ def calculadora():
 
     with col2:
         st.write("Expansão:")
-        expansion = sp.expand((sp.sympify(x) + sp.sympify(y)) ** n)
-        st.latex(sp.latex(expansion))
+        try:
+            # Tenta converter as entradas para expressões simbólicas
+            expansion = sp.expand((sp.sympify(x) + sp.sympify(y)) ** n)
+            st.latex(sp.latex(expansion))
 
-        st.write("Termos individuais:")
-        terms = expansion.as_ordered_terms()
-        for i, term in enumerate(terms):
-            st.latex(f"Termo {i + 1}: {sp.latex(term)}")
+            st.write("Termos individuais:")
+            terms = expansion.as_ordered_terms()
+            for i, term in enumerate(terms):
+                st.latex(f"Termo {i + 1}: {sp.latex(term)}")
+        except sp.SympifyError:
+            st.error("Erro: Um ou mais termos não puderam ser interpretados. Verifique as entradas e tente novamente.")
 
     add_vertical_space(2)
 
@@ -123,8 +127,7 @@ def calculadora():
             """
     ):
         st.markdown("### 🔍 Insight")
-        st.write(f"A expansão de $({x} + {y})^{n}$ tem {len(terms)} termos.")
-        st.write(f"O termo do meio (se existir) é: {sp.latex(terms[len(terms) // 2])}")
+        st.write(f"A expansão de $({x} + {y})^{n}$ terá {n + 1} termos.")
 
 
 def coeficientes():
