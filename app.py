@@ -161,7 +161,7 @@ def coeficientes():
 def triangulo_pascal():
     st.title("Triângulo de Pascal - Visualização Ampliada")
     
-    rows = st.slider("Número de linhas", 1, 20, 7)  # Permitindo até 20 linhas para melhorar a visualização
+    rows = st.slider("Número de linhas", 1, 10, 7)  # Permitindo até 20 linhas para melhorar a visualização
 
     # Gerar o Triângulo de Pascal
     triangle = [[1]]
