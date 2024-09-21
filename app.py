@@ -11,7 +11,7 @@ import time
 
 def main():
 
-    st.set_page_config(page_title="Binômio de Newton Interativo", page_icon="📐", layout="wide")
+    st.set_page_config(page_title="Binômio de Newton Interativo", page_icon="📐", layout="centered")
 
     st.markdown("""
     <style>
@@ -159,10 +159,11 @@ def coeficientes():
 
 
 def triangulo_pascal():
-    colored_header(label="Triângulo de Pascal", description="Visualize os coeficientes binomiais", color_name="red-70")
+    st.title("Triângulo de Pascal - Visualização Ampliada")
+    
+    rows = st.slider("Número de linhas", 1, 20, 7)  # Permitindo até 20 linhas para melhorar a visualização
 
-    rows = st.slider("Número de linhas", 1, 15, 7)
-
+    # Gerar o Triângulo de Pascal
     triangle = [[1]]
     for i in range(1, rows):
         row = [1]
@@ -171,13 +172,23 @@ def triangulo_pascal():
         row.append(1)
         triangle.append(row)
 
-    fig, ax = plt.subplots(figsize=(10, 5))
-    ax.axis('off')
+    # Preparar a visualização
+    fig, ax = plt.subplots(figsize=(10, 8))  # Aumentando o tamanho da figura
+    ax.set_axis_off()
+
+    # Definir a distância entre os pontos e centralizar melhor
     for i, row in enumerate(triangle):
         for j, num in enumerate(row):
-            ax.text(j - i / 2, -i, str(num), ha='center', va='center', fontweight='bold')
+            ax.text(j - i / 2, -i, str(num), ha='center', va='center', fontweight='bold', fontsize=14)  # Aumentando o tamanho da fonte
+            
+            # Desenhar linhas conectando os números para criar o formato de triângulo
+            if i > 0:
+                if j < len(row) - 1:
+                    ax.plot([j - i / 2, j - i / 2 - 0.5], [-i, -(i - 1)], color='black', lw=1)
+                if j > 0:
+                    ax.plot([j - i / 2, j - i / 2 + 0.5], [-i, -(i - 1)], color='black', lw=1)
 
-    plt.title("Triângulo de Pascal")
+    plt.title("Triângulo de Pascal", fontsize=18)  # Aumentando o tamanho do título
     st.pyplot(fig)
 
     add_vertical_space(2)
