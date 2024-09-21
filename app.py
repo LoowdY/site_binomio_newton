@@ -45,7 +45,7 @@ def main():
         exercicios_criativos()
     elif choice == "🧪 Laboratório":
         laboratorio_virtual()
-    st.write("Autor: João Renan S. Lopes")
+    st.write("Autores: João Renan S. Lopes E Pedro Girotto")
     st.write("Centro Universitário do Pará")
 
 def teoria():
