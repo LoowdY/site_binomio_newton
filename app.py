@@ -10,7 +10,6 @@ import time
 
 
 def main():
-
     st.set_page_config(page_title="Binômio de Newton Interativo", page_icon="📐", layout="centered")
 
     st.markdown("""
@@ -30,7 +29,8 @@ def main():
     """, unsafe_allow_html=True)
 
     st.sidebar.title('📚 Navegação')
-    options = ["🧠 Teoria", "🔢 Calculadora", "🎲 Coeficientes", "🔺 Triângulo de Pascal", "💡 Exercícios", "🧪 Laboratório"]
+    options = ["🧠 Teoria", "🔢 Calculadora", "🎲 Coeficientes", "🔺 Triângulo de Pascal", "💡 Exercícios", "🧪 Laboratório",
+               "📝 Passo a Passo", "🔄 Identificação de Binômios"]
     choice = st.sidebar.radio("Escolha uma opção", options)
 
     if choice == "🧠 Teoria":
@@ -45,13 +45,18 @@ def main():
         exercicios_criativos()
     elif choice == "🧪 Laboratório":
         laboratorio_virtual()
+    elif choice == "📝 Passo a Passo":
+        passo_a_passo()
+    elif choice == "🔄 Identificação de Binômios":
+        identificacao_binomios()
     st.write("Autores: João Renan S. Lopes E Pedro Girotto")
     st.write("Centro Universitário do Pará")
+
 
 def teoria():
     colored_header(label="Teoria do Binômio de Newton", description="O Básico e aplicações", color_name="green-70")
 
-    st.write("""
+    st.write(r"""
     O Binômio de Newton é uma expressão algébrica que permite expandir potências de binômios de forma eficiente. 
     A fórmula geral para $(x + y)^n$ é:
     """)
@@ -86,11 +91,13 @@ def teoria():
         st.latex(r"(2x + y)^4 = 16x^4 + 32x^3y + 24x^2y^2 + 8xy^3 + y^4")
 
     add_vertical_space(2)
-    st.info("💡 Dica: O Binômio de Newton é uma ferramenta poderosa para simplificar cálculos complexos em várias áreas da matemática e ciências aplicadas.")
+    st.info(
+        "💡 Dica: O Binômio de Newton é uma ferramenta poderosa para simplificar cálculos complexos em várias áreas da matemática e ciências aplicadas.")
 
 
 def calculadora():
-    colored_header(label="Calculadora do Binômio de Newton", description="Expanda binômios interativamente", color_name="blue-70")
+    colored_header(label="Calculadora do Binômio de Newton", description="Expanda binômios interativamente",
+                   color_name="blue-70")
 
     col1, col2 = st.columns(2)
 
@@ -102,7 +109,6 @@ def calculadora():
     with col2:
         st.write("Expansão:")
         try:
-            # Tenta converter as entradas para expressões simbólicas
             expansion = sp.expand((sp.sympify(x) + sp.sympify(y)) ** n)
             st.latex(sp.latex(expansion))
 
@@ -131,7 +137,8 @@ def calculadora():
 
 
 def coeficientes():
-    colored_header(label="Coeficientes Binomiais", description="Explore os coeficientes do Binômio de Newton", color_name="orange-70")
+    colored_header(label="Coeficientes Binomiais", description="Explore os coeficientes do Binômio de Newton",
+                   color_name="orange-70")
 
     col1, col2 = st.columns(2)
 
@@ -160,10 +167,9 @@ def coeficientes():
 
 def triangulo_pascal():
     st.title("Triângulo de Pascal - Visualização Ampliada")
-    
-    rows = st.slider("Número de linhas", 1, 10, 7)  # Permitindo até 20 linhas para melhorar a visualização
 
-    # Gerar o Triângulo de Pascal
+    rows = st.slider("Número de linhas", 1, 10, 7)
+
     triangle = [[1]]
     for i in range(1, rows):
         row = [1]
@@ -172,23 +178,20 @@ def triangulo_pascal():
         row.append(1)
         triangle.append(row)
 
-    # Preparar a visualização
-    fig, ax = plt.subplots(figsize=(10, 8))  # Aumentando o tamanho da figura
+    fig, ax = plt.subplots(figsize=(10, 8))
     ax.set_axis_off()
 
-    # Definir a distância entre os pontos e centralizar melhor
     for i, row in enumerate(triangle):
         for j, num in enumerate(row):
-            ax.text(j - i / 2, -i, str(num), ha='center', va='center', fontweight='bold', fontsize=14)  # Aumentando o tamanho da fonte
-            
-            # Desenhar linhas conectando os números para criar o formato de triângulo
+            ax.text(j - i / 2, -i, str(num), ha='center', va='center', fontweight='bold', fontsize=14)
+
             if i > 0:
                 if j < len(row) - 1:
                     ax.plot([j - i / 2, j - i / 2 - 0.5], [-i, -(i - 1)], color='black', lw=1)
                 if j > 0:
                     ax.plot([j - i / 2, j - i / 2 + 0.5], [-i, -(i - 1)], color='black', lw=1)
 
-    plt.title("Triângulo de Pascal", fontsize=18)  # Aumentando o tamanho do título
+    plt.title("Triângulo de Pascal", fontsize=18)
     st.pyplot(fig)
 
     add_vertical_space(2)
@@ -282,11 +285,13 @@ def exercicios_criativos():
 
     add_vertical_space(2)
 
-    st.success("🏆 Parabéns por enfrentar esses desafios! Lembre-se, a prática leva à perfeição em matemática. Abraços do monitor!")
+    st.success(
+        "🏆 Parabéns por enfrentar esses desafios! Lembre-se, a prática leva à perfeição em matemática. Abraços do monitor!")
 
 
 def laboratorio_virtual():
-    colored_header(label="Laboratório Virtual", description="Experimente com o Binômio de Newton", color_name="blue-green-70")
+    colored_header(label="Laboratório Virtual", description="Experimente com o Binômio de Newton",
+                   color_name="blue-green-70")
 
     st.write("""
     Bem-vindo ao Laboratório Virtual do Binômio de Newton! 
@@ -342,6 +347,267 @@ def laboratorio_virtual():
         ])
         st.info(challenge)
 
+
+def passo_a_passo():
+    colored_header(label="Passo a Passo", description="Como expandir e simplificar um binômio", color_name="blue-70")
+
+    st.write(r"""
+    Antes de iniciar a parte interativa, é importante entender detalhadamente como expandir um binômio passo a passo.
+
+    ### Entendendo o Binômio de Newton
+
+    O Binômio de Newton é uma fórmula que permite expandir potências de binômios. A fórmula geral é:
+
+    $$(x + y)^n = \sum_{k=0}^n \binom{n}{k} x^{n-k} y^k$$
+
+    Onde:
+    - $n$ é o expoente do binômio
+    - $k$ é o índice da soma, variando de 0 a n
+    - $\binom{n}{k}$ é o coeficiente binomial, também conhecido como "n escolhe k"
+
+    ### Passo a Passo para Expandir um Binômio
+
+    Utiliza-se o exemplo $(a + b)^3$ para ilustrar o processo:
+
+    1. Identificação dos valores de $n$, $x$, e $y$:
+       - $n = 3$
+       - $x = a$
+       - $y = b$
+
+    2. Aplicação da fórmula para cada valor de $k$ de 0 a $n$:
+
+       - Para $k = 0$: $\binom{3}{0} a^3 b^0 = 1 \cdot a^3 \cdot 1 = a^3$
+       - Para $k = 1$: $\binom{3}{1} a^2 b^1 = 3 \cdot a^2 \cdot b = 3a^2b$
+       - Para $k = 2$: $\binom{3}{2} a^1 b^2 = 3 \cdot a \cdot b^2 = 3ab^2$
+       - Para $k = 3$: $\binom{3}{3} a^0 b^3 = 1 \cdot 1 \cdot b^3 = b^3$
+
+    3. Soma de todos os termos:
+
+       $(a + b)^3 = a^3 + 3a^2b + 3ab^2 + b^3$
+
+    Este é o resultado final da expansão.
+
+    ### Pontos Importantes a Serem Lembrados
+
+    - O número de termos na expansão será sempre $n + 1$.
+    - Os expoentes de $x$ diminuem de $n$ até 0, enquanto os de $y$ aumentam de 0 até $n$.
+    - Os coeficientes binomiais $\binom{n}{k}$ formam o Triângulo de Pascal.
+
+    Após compreender o processo, pode-se praticar com alguns exemplos interativos.
+    """)
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        x = st.text_input("Primeiro termo (ex: x, 2*x, -y)", "x")
+        y = st.text_input("Segundo termo (ex: y, 3, 2*z)", "2")
+        n = st.slider("Expoente", 1, 5, 3)
+
+    with col2:
+        st.write(f"Expandindo: $({x} + {y})^{n}$")
+
+    if st.button("Expandir passo a passo"):
+        try:
+            x_sym, y_sym = sp.symbols('x y')
+            expr = (sp.sympify(x) + sp.sympify(y)) ** n
+            expansion = sp.expand(expr)
+
+            st.write("### Passos da expansão:")
+            for k in range(n + 1):
+                term = sp.binomial(n, k) * sp.sympify(x) ** (n - k) * sp.sympify(y) ** k
+                st.latex(rf"\binom{{{n}}}{{{k}}} \cdot ({x})^{{{n - k}}} \cdot ({y})^{{{k}}} = {sp.latex(term)}")
+
+            st.write("### Resultado final:")
+            st.latex(sp.latex(expansion))
+        except sp.SympifyError:
+            st.error(
+                "Erro ao processar a expressão. É necessário usar '*' para multiplicação (ex: 2*x em vez de 2x).")
+
+    add_vertical_space(2)
+    st.info("💡 Experimente com diferentes termos e expoentes para observar como a expansão se modifica.")
+
+    # Seção de exercícios interativos
+    st.subheader("Exercícios Interativos")
+
+    exercise_type = st.radio("Escolha o tipo de exercício:", ["Expansão", "Coeficiente Específico"])
+
+    if exercise_type == "Expansão":
+        a, b = random.randint(1, 5), random.randint(1, 5)
+        n = random.randint(2, 4)
+        expr = sp.expand((a * sp.Symbol('x') + b) ** n)
+        st.write('Expanda')
+        st.latex(rf"({a}x + {b})^{{{n}}}")
+        user_answer = st.text_input("Resposta:")
+
+        if st.button("Verificar"):
+            try:
+                if sp.expand(sp.sympify(user_answer)) == expr:
+                    st.success("Correto! A resposta está precisa.")
+                else:
+                    st.error("Incorreto. É recomendável tentar novamente.")
+            except:
+                st.error("Erro ao processar a resposta. Verifique a sintaxe.")
+
+        if st.button("Mostrar solução"):
+            st.write("A expansão é:")
+            st.latex(sp.latex(expr))
+
+    elif exercise_type == "Coeficiente Específico":
+        a, b = random.randint(1, 5), random.randint(1, 5)
+        n = random.randint(4, 6)
+        k = random.randint(1, n - 1)
+        coef = sp.binomial(n, k) * a ** (n - k) * b ** k
+
+        st.write('Qual é o coeficiente de')
+        st.latex(rf"x^{{{n - k}}} \text{{ na expansão de }} ({a}x + {b})^{{{n}}}")
+        user_answer = st.number_input("Resposta:", step=1)
+
+        if st.button("Verificar"):
+            if user_answer == coef:
+                st.success("Correto! A resposta está precisa.")
+            else:
+                st.error("Incorreto. É recomendável tentar novamente.")
+
+        if st.button("Mostrar solução"):
+            st.write("O coeficiente é:")
+            st.latex(rf"\binom{{{n}}}{{{k}}} \cdot {a}^{{{n - k}}} \cdot {b}^{{{k}}} = {coef}")
+
+def identificacao_binomios():
+    colored_header(label="Identificação de Binômios", description="Como identificar binômios de expressões expandidas",
+                   color_name="orange-70")
+
+    st.write(r"""
+    Antes de praticar a identificação de binômios, é importante entender o processo de como reconhecer um binômio expandido e reduzi-lo à sua forma original.
+
+    ### Processo de Identificação de Binômios
+
+    1. **Observação do grau**: O maior expoente na expressão expandida será o expoente do binômio original.
+
+    2. **Identificação dos termos**: Em um binômio $(ax + b)^n$, encontram-se:
+       - Um termo com $x^n$
+       - Um termo constante (sem $x$)
+       - Termos intermediários com potências de $x$ decrescendo de $n-1$ até 1
+
+    3. **Determinação de $a$ e $b$**:
+       - $a$ é a raiz n-ésima do coeficiente de $x^n$
+       - $b$ é a raiz n-ésima do termo constante
+
+    4. **Verificação dos coeficientes**: Os coeficientes devem seguir o padrão do Triângulo de Pascal multiplicado por potências de $a$ e $b$.
+
+    ### Exemplo Detalhado
+
+    Identificação do binômio original para a expressão: $x^3 + 6x^2 + 12x + 8$
+
+    1. **Grau**: O maior expoente é 3, então $n = 3$.
+
+    2. **Termos**: Presença de $x^3$, $x^2$, $x$, e um termo constante. A expressão está completa.
+
+    3. **Determinação de $a$ e $b$**:
+       - Coeficiente de $x^3$ é 1, então $a = 1$
+       - Termo constante é 8, então $b = 2$ (pois $2^3 = 8$)
+
+    4. **Verificação dos coeficientes**:
+       - $\binom{3}{0} = 1$ (coeficiente de $x^3$)
+       - $\binom{3}{1} \cdot 2 = 3 \cdot 2 = 6$ (coeficiente de $x^2$)
+       - $\binom{3}{2} \cdot 2^2 = 3 \cdot 4 = 12$ (coeficiente de $x$)
+       - $\binom{3}{3} \cdot 2^3 = 1 \cdot 8 = 8$ (termo constante)
+
+    Portanto, o binômio original é $(x + 2)^3$.
+
+    ### Dicas para Identificação
+
+    - Se o coeficiente de $x^n$ não for 1, divide-se todos os termos por este coeficiente primeiro.
+    - Atenção aos sinais: se há alternância de sinais, provavelmente o segundo termo do binômio é negativo.
+    - Utiliza-se o Triângulo de Pascal para verificar se os coeficientes seguem o padrão esperado.
+
+    Após compreender o processo de identificação, pode-se praticar com alguns exemplos interativos.
+    """)
+
+    # Lista de binômios pré-definidos
+    binomios = [
+        ("x + 1", 2),
+        ("x - 2", 3),
+        ("2*x + 3", 2),
+        ("3*x - 1", 3),
+        ("x + y", 2)
+    ]
+
+    # Escolha aleatória de um binômio
+    x, y = sp.symbols('x y')
+    binomio, expoente = random.choice(binomios)
+    try:
+        expr = sp.expand((sp.sympify(binomio)) ** expoente)
+    except sp.SympifyError:
+        st.error("Erro ao processar o binômio. É necessário recarregar a página.")
+        return
+
+    st.subheader(f"Identifique o binômio original da expressão:")
+    st.latex(sp.latex(expr))
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        user_binomio = st.text_input("Digite o binômio que se acredita ser o correto (ex: x+1)", "")
+    with col2:
+        user_expoente = st.number_input("Digite o expoente", 1, 5, 2)
+
+    if st.button("Verificar"):
+        if user_binomio and user_expoente:
+            try:
+                user_expr = sp.expand((sp.sympify(user_binomio)) ** user_expoente)
+                if user_expr == expr:
+                    st.success("Correto! O binômio original foi identificado corretamente.")
+                else:
+                    st.error("Incorreto. É recomendável tentar novamente.")
+                    st.write("Dica: Observe atentamente os coeficientes e os termos constantes.")
+            except sp.SympifyError:
+                st.error("Erro ao processar a resposta. Verifique a sintaxe e use '*' para multiplicação.")
+        else:
+            st.warning("É necessário preencher o binômio e o expoente antes de verificar.")
+
+    if st.button("Revelar resposta"):
+        st.write("O binômio original era:")
+        st.latex(rf"({binomio})^{{{expoente}}}")
+
+    add_vertical_space(2)
+    st.success("🔁 Continue praticando para aprimorar as habilidades de identificação de binômios.")
+
+    # Seção de exercícios interativos
+    st.subheader("Exercícios Interativos de Identificação")
+
+    difficulty = st.radio("Escolha o nível de dificuldade:", ["Nivel 1", "Nivel 2", "Nivel 3"])
+
+    if difficulty == "Nivel 1":
+        a, b = random.randint(1, 5), random.randint(1, 5)
+        n = 2
+    elif difficulty == "Nivel 2":
+        a, b = random.randint(1, 10), random.randint(1, 10)
+        n = 3
+    else:
+        a, b = random.randint(1, 15), random.randint(1, 15)
+        n = 4
+
+    expr = sp.expand((a * sp.Symbol('x') + b) ** n)
+
+    st.write("Identifique o binômio e o expoente para a seguinte expressão expandida:")
+    st.latex(sp.latex(expr))
+
+    col1, col2 = st.columns(2)
+    with col1:
+        user_a = st.number_input("Coeficiente de x:", step=1)
+        user_b = st.number_input("Termo constante:", step=1)
+    with col2:
+        user_n = st.number_input("Expoente:", min_value=1, step=1)
+
+    if st.button("Verificar identificação"):
+        if user_a == a and user_b == b and user_n == n:
+            st.success("Correto! O binômio original foi identificado perfeitamente.")
+        else:
+            st.error("Incorreto. Recomenda-se analisar a expressão mais cuidadosamente.")
+
+    if st.button("Mostrar binômio original"):
+        st.write("O binômio original é:")
+        st.latex(rf"({a}x + {b})^{{{n}}}")
 
 if __name__ == "__main__":
     main()
