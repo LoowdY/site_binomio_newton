@@ -211,7 +211,7 @@ def triangulo_pascal():
 
 
 def exercicios_criativos():
-    colored_header(label="Exercícios Criativos", description="Teste seus conhecimentos de forma divertida", color_name="violet-70")
+    colored_header(label="Exercícios Criativos", description="Hora da verdade!", color_name="violet-70")
 
     exercises = [
         {
