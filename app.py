@@ -29,8 +29,8 @@ def main():
     """, unsafe_allow_html=True)
 
     st.sidebar.title('📚 Navegação')
-    options = ["🧠 Teoria", "🔢 Calculadora", "🎲 Coeficientes", "🔺 Triângulo de Pascal", "💡 Exercícios", "🧪 Laboratório",
-               "📝 Passo a Passo", "🔄 Identificação de Binômios"]
+    options = ["🧠 Teoria", "🔢 Calculadora", "🎲 Coeficientes", "🔺 Triângulo de Pascal", "🧪 Laboratório",
+               "📝 Passo a Passo", "🔄 Identificação de Binômios", "💡 Exercícios"]
     choice = st.sidebar.radio("Escolha uma opção", options)
 
     if choice == "🧠 Teoria":
