@@ -3,58 +3,38 @@ import sympy as sp
 import matplotlib.pyplot as plt
 import numpy as np
 import random
-from streamlit_extras.colored_header import colored_header
-from streamlit_extras.add_vertical_space import add_vertical_space
-from streamlit_extras.stylable_container import stylable_container
-import time
-
 
 def main():
-    st.set_page_config(page_title="Binômio de Newton Interativo", page_icon="📐", layout="centered")
+    st.set_page_config(page_title='Binômio de Newton', page_icon="📐", layout="centered")
+    st.title("Binômio de Newton Interativo")
 
-    st.markdown("""
-    <style>
-    .stApp {
-        background-color: #f0f2f6;
-    }
-    .stButton>button {
-        background-color: #4CAF50;
-        color: white;
-        border-radius: 5px;
-    }
-    .stTextInput>div>div>input {
-        background-color: #e8f0fe;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
-    st.sidebar.title('📚 Navegação')
-    options = ["🧠 Teoria", "🔢 Calculadora", "🎲 Coeficientes", "🔺 Triângulo de Pascal", "🧪 Laboratório",
-               "📝 Passo a Passo", "🔄 Identificação de Binômios", "💡 Exercícios"]
+    st.sidebar.title('Navegação')
+    options = ["Teoria", "Calculadora", "Coeficientes", "Triângulo de Pascal", "Laboratório",
+               "Passo a Passo", "Identificação de Binômios", "Exercícios"]
     choice = st.sidebar.radio("Escolha uma opção", options)
 
-    if choice == "🧠 Teoria":
+    if choice == "Teoria":
         teoria()
-    elif choice == "🔢 Calculadora":
+    elif choice == "Calculadora":
         calculadora()
-    elif choice == "🎲 Coeficientes":
+    elif choice == "Coeficientes":
         coeficientes()
-    elif choice == "🔺 Triângulo de Pascal":
+    elif choice == "Triângulo de Pascal":
         triangulo_pascal()
-    elif choice == "💡 Exercícios":
+    elif choice == "Exercícios":
         exercicios_criativos()
-    elif choice == "🧪 Laboratório":
+    elif choice == "Laboratório":
         laboratorio_virtual()
-    elif choice == "📝 Passo a Passo":
+    elif choice == "Passo a Passo":
         passo_a_passo()
-    elif choice == "🔄 Identificação de Binômios":
+    elif choice == "Identificação de Binômios":
         identificacao_binomios()
     st.write("Autores: João Renan S. Lopes E Pedro Girotto")
     st.write("Centro Universitário do Pará")
 
-
 def teoria():
-    colored_header(label="Teoria do Binômio de Newton", description="O Básico e aplicações", color_name="green-70")
+    st.header("Teoria do Binômio de Newton")
+    st.subheader("O Básico e aplicações")
 
     st.write(r"""
     O Binômio de Newton é uma expressão algébrica que permite expandir potências de binômios de forma eficiente. 
@@ -90,20 +70,17 @@ def teoria():
     if st.button("Mostrar solução exemplo 2"):
         st.latex(r"(2x + y)^4 = 16x^4 + 32x^3y + 24x^2y^2 + 8xy^3 + y^4")
 
-    add_vertical_space(2)
-    st.info(
-        "💡 Dica: O Binômio de Newton é uma ferramenta poderosa para simplificar cálculos complexos em várias áreas da matemática e ciências aplicadas.")
-
+    st.info("Dica: O Binômio de Newton é uma ferramenta poderosa para simplificar cálculos complexos em várias áreas da matemática e ciências aplicadas.")
 
 def calculadora():
-    colored_header(label="Calculadora do Binômio de Newton", description="Expanda binômios interativamente",
-                   color_name="blue-70")
+    st.header("Calculadora do Binômio de Newton")
+    st.subheader("Expanda binômios interativamente")
 
     col1, col2 = st.columns(2)
 
     with col1:
-        x = st.text_input("Primeiro termo (ex: x, 2x, -y)", "x")
-        y = st.text_input("Segundo termo (ex: y, 3, 2z)", "y")
+        x = st.text_input("Primeiro termo (ex: x, 2*x, -y)", "x")
+        y = st.text_input("Segundo termo (ex: y, 3, 2*z)", "y")
         n = st.slider("Expoente", 0, 10, 2)
 
     with col2:
@@ -119,26 +96,12 @@ def calculadora():
         except sp.SympifyError:
             st.error("Erro: Um ou mais termos não puderam ser interpretados. Verifique as entradas e tente novamente.")
 
-    add_vertical_space(2)
-
-    with stylable_container(
-            key="expansion_insight",
-            css_styles="""
-            {
-                background-color: #e6f3ff;
-                border: 1px solid #b3d9ff;
-                border-radius: 10px;
-                padding: 20px;
-            }
-            """
-    ):
-        st.markdown("### 🔍 Insight")
-        st.write(f"A expansão de $({x} + {y})^{n}$ terá {n + 1} termos.")
-
+    st.subheader("Insight")
+    st.write(f"A expansão de ({x} + {y})^{n} terá {n + 1} termos.")
 
 def coeficientes():
-    colored_header(label="Coeficientes Binomiais", description="Explore os coeficientes do Binômio de Newton",
-                   color_name="orange-70")
+    st.header("Coeficientes Binomiais")
+    st.subheader("Explore os coeficientes do Binômio de Newton")
 
     col1, col2 = st.columns(2)
 
@@ -161,12 +124,10 @@ def coeficientes():
         ax.set_ylabel("Coeficiente")
         st.pyplot(fig)
 
-    add_vertical_space(2)
-    st.info(f"💡 Interpretação: Existem {coef} maneiras de escolher {k} itens de um conjunto de {n} itens.")
-
+    st.info(f"Interpretação: Existem {coef} maneiras de escolher {k} itens de um conjunto de {n} itens.")
 
 def triangulo_pascal():
-    st.title("Triângulo de Pascal - Visualização Ampliada")
+    st.header("Triângulo de Pascal - Visualização Ampliada")
 
     rows = st.slider("Número de linhas", 1, 10, 7)
 
@@ -194,27 +155,14 @@ def triangulo_pascal():
     plt.title("Triângulo de Pascal", fontsize=18)
     st.pyplot(fig)
 
-    add_vertical_space(2)
-
-    with stylable_container(
-            key="pascal_facts",
-            css_styles="""
-            {
-                background-color: #fff0f5;
-                border: 1px solid #ffb3d9;
-                border-radius: 10px;
-                padding: 20px;
-            }
-            """
-    ):
-        st.markdown("### 🌟 Fatos Curiosos")
-        st.write("1. As somas das linhas são potências de 2: 1, 2, 4, 8, 16, 32, ...")
-        st.write("2. Os números nas diagonais formam os números de Fibonacci.")
-        st.write("3. O triângulo contém padrões fractais como o Triângulo de Sierpinski.")
-
+    st.subheader("Fatos Curiosos")
+    st.write("1. As somas das linhas são potências de 2: 1, 2, 4, 8, 16, 32, ...")
+    st.write("2. Os números nas diagonais formam os números de Fibonacci.")
+    st.write("3. O triângulo contém padrões fractais como o Triângulo de Sierpinski.")
 
 def exercicios_criativos():
-    colored_header(label="Exercícios Criativos", description="Hora da verdade!", color_name="violet-70")
+    st.header("Exercícios Criativos")
+    st.subheader("Hora da verdade!")
 
     exercises = [
         {
@@ -283,15 +231,11 @@ def exercicios_criativos():
             if st.button(f"Mostrar solução {i + 1}"):
                 st.write(exercise["solution"])
 
-    add_vertical_space(2)
-
-    st.success(
-        "🏆 Parabéns por enfrentar esses desafios! Lembre-se, a prática leva à perfeição em matemática. Abraços do monitor!")
-
+    st.success("Parabéns por enfrentar esses desafios! Lembre-se, a prática leva à perfeição em matemática. Abraços do monitor!")
 
 def laboratorio_virtual():
-    colored_header(label="Laboratório Virtual", description="Experimente com o Binômio de Newton",
-                   color_name="blue-green-70")
+    st.header("Laboratório Virtual")
+    st.subheader("Experimente com o Binômio de Newton")
 
     st.write("""
     Bem-vindo ao Laboratório Virtual do Binômio de Newton! 
@@ -324,32 +268,19 @@ def laboratorio_virtual():
         ax.grid(True)
         st.pyplot(fig)
 
-    add_vertical_space(2)
-
-    with stylable_container(
-            key="lab_challenge",
-            css_styles="""
-            {
-                background-color: #f0fff0;
-                border: 1px solid #90ee90;
-                border-radius: 10px;
-                padding: 20px;
-            }
-            """
-    ):
-        st.markdown("### 🧪 Desafio do Laboratório")
-        st.write("Tente ajustar os parâmetros para criar uma função que:")
-        challenge = random.choice([
-            "Tenha três raízes reais",
-            "Seja sempre positiva",
-            "Tenha um ponto de inflexão",
-            "Seja simétrica em relação ao eixo y"
-        ])
-        st.info(challenge)
-
+    st.subheader("Desafio do Laboratório")
+    st.write("Tente ajustar os parâmetros para criar uma função que:")
+    challenge = random.choice([
+        "Tenha três raízes reais",
+        "Seja sempre positiva",
+        "Tenha um ponto de inflexão",
+        "Seja simétrica em relação ao eixo y"
+    ])
+    st.info(challenge)
 
 def passo_a_passo():
-    colored_header(label="Passo a Passo", description="Como expandir e simplificar um binômio", color_name="blue-70")
+    st.header("Passo a Passo")
+    st.subheader("Como expandir e simplificar um binômio")
 
     st.write(r"""
     Antes de iniciar a parte interativa, é importante entender detalhadamente como expandir um binômio passo a passo.
@@ -423,8 +354,7 @@ def passo_a_passo():
             st.error(
                 "Erro ao processar a expressão. É necessário usar '*' para multiplicação (ex: 2*x em vez de 2x).")
 
-    add_vertical_space(2)
-    st.info("💡 Experimente com diferentes termos e expoentes para observar como a expansão se modifica.")
+    st.info("Experimente com diferentes termos e expoentes para observar como a expansão se modifica.")
 
     # Seção de exercícios interativos
     st.subheader("Exercícios Interativos")
@@ -473,8 +403,8 @@ def passo_a_passo():
             st.latex(rf"\binom{{{n}}}{{{k}}} \cdot {a}^{{{n - k}}} \cdot {b}^{{{k}}} = {coef}")
 
 def identificacao_binomios():
-    colored_header(label="Identificação de Binômios", description="Como identificar binômios de expressões expandidas",
-                   color_name="orange-70")
+    st.header("Identificação de Binômios")
+    st.subheader("Como identificar binômios de expressões expandidas")
 
     st.write(r"""
     Antes de praticar a identificação de binômios, é importante entender o processo de como reconhecer um binômio expandido e reduzi-lo à sua forma original.
@@ -569,8 +499,7 @@ def identificacao_binomios():
         st.write("O binômio original era:")
         st.latex(rf"({binomio})^{{{expoente}}}")
 
-    add_vertical_space(2)
-    st.success("🔁 Continue praticando para aprimorar as habilidades de identificação de binômios.")
+    st.success("Continue praticando para aprimorar as habilidades de identificação de binômios.")
 
     # Seção de exercícios interativos
     st.subheader("Exercícios Interativos de Identificação")
